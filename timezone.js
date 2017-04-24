@@ -1,12 +1,12 @@
 /**
  * Bare minimum version of Moment Timezone without dependencies.
- * 
+ *
  * Check Moment Timezone for the original source and data files:
  * http://momentjs.com/timezone
  * https://github.com/moment/moment-timezone
- * 
+ *
  * Example of how to use it:
- * 
+ *
  * <script src='timezone.js'></script>
  * <script>
  *      mzone.loadData({
@@ -22,7 +22,7 @@
  *      let d = new Date();
  *      console.log(mzone.tz(d, "Europe/Madrid").toLocaleString());
  *      console.log(mzone.tz(d, "Australia/Sydney").toLocaleString());
- * </script> 
+ * </script>
  */
 
 var mzone = mzone || {};
@@ -34,8 +34,8 @@ var mzone = mzone || {};
 
     obj.tz = function (date, tzName) {
         if (typeof date === "string") {
-			date = new Date(date);
-		}
+            date = new Date(date);
+        }
         var utc = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
         var tz = getZone(tzName);
         if (!tz) {
@@ -204,7 +204,9 @@ var mzone = mzone || {};
     function addZone(packed) {
         var i, name, split, normalized;
 
-        if (typeof packed === "string") {
+        if(packed === undefined) {
+            packed = [];
+        } else if (typeof packed === "string") {
             packed = [packed];
         }
 
@@ -247,7 +249,9 @@ var mzone = mzone || {};
     function addLink(aliases) {
         var i, alias, normal0, normal1;
 
-        if (typeof aliases === "string") {
+        if(aliases === undefined) {
+            aliases = [];
+        } else if (typeof aliases === "string") {
             aliases = [aliases];
         }
 
@@ -269,5 +273,5 @@ var mzone = mzone || {};
         addZone(data.zones);
         addLink(data.links);
     }
-
 })(mzone);
+module.exports = mzone;
